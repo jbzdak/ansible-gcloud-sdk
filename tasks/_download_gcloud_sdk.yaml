@@ -1,0 +1,39 @@
+---
+- name: delete work folder
+  file: name={{ gcloud_install_work_folder }} state=absent
+
+- name: create work folder
+  file: name={{ gcloud_install_work_folder }} state=directory
+
+- name: delete target folder
+  file: name={{ gcloud_sdk.destination }} state=absent
+
+- name: ensure target folder
+  file: name={{ gcloud_sdk.destination }} state=directory
+
+- name: install dependencies
+  apt: name={{ item }} state=present
+  with_items: "{{ gcloud_sdk.dependencies }}"
+
+- name: "Download sdk"
+  get_url:
+    dest: "{{ gcloud_install_work_folder }}/gcloud.sdk.tar.gz"
+    url: "{{ gcloud_sdk.download.url }}"
+    sha256sum: "{{ gcloud_sdk.download.sha256 }}"
+    validate_certs: yes
+
+- name: "Unpack"
+  unarchive:
+    src: "{{ gcloud_install_work_folder }}/gcloud.sdk.tar.gz"
+    dest: "{{ gcloud_sdk.destination }}"
+    remote_src: True
+
+- lineinfile:
+    path: /home/{{ item }}/.bashrc
+    line: 'PATH={{ gcloud_sdk.destination }}/bin:${PATH}'
+  with_items: "{{ gcloud_sdk.add_to_path_for }}"
+
+- name: test for completion
+  template:
+    dest: "{{ sdk_version_marker }}"
+    src: version_merker

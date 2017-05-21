@@ -1,0 +1,12 @@
+---
+galaxy_info:
+  author: Jacek Bzdak
+  description: |
+    Downloads goggle cloud sdk and installs it.
+  license: BSD
+  min_ansible_version: 1.9
+  platforms:
+    - name: Debian
+      versions:
+        - jessie
+dependencies: []

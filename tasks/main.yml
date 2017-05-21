@@ -1,0 +1,19 @@
+---
+# tasks file for jbzdak.gcloud-sdk
+- name:
+  set_fact:
+    sdk_version_marker: "{{gcloud_sdk.destination}}/.version"
+- name: ensure target folder
+  file: name={{ gcloud_sdk.destination }} state=directory
+- name: test for completion
+  template:
+    dest: "{{ sdk_version_marker }}"
+    src: version_merker
+  register: out
+- name: remove completion marker if not completed
+  file:
+    name: "{{ sdk_version_marker }}"
+    state: absent
+  when: out.changed
+- include: _download_gcloud_sdk.yaml
+  when: out.changed
