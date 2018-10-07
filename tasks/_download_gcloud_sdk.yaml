@@ -12,8 +12,7 @@
   file: name={{ gcloud_sdk.destination }} state=directory
 
 - name: install dependencies
-  apt: name={{ item }} state=present
-  with_items: "{{ gcloud_sdk.dependencies }}"
+  apt: name="{{ gcloud_sdk.dependencies }}" state=present
 
 - name: "Download sdk"
   get_url:
@@ -36,4 +35,4 @@
 - name: test for completion
   template:
     dest: "{{ sdk_version_marker }}"
-    src: version_merker
+    src: version_marker

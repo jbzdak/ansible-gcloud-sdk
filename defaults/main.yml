@@ -7,7 +7,7 @@ gcloud_sdk:
   add_to_path_for: []
   destination: /opt/gcloud-dsk
   download:
-    url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-155.0.0-linux-x86_64.tar.gz
-    sha256: 4b64fba9d98b9e48cc7a37ed3b321e50f92e87f9c2b358d183f966dae05216a2
+    url: https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-219.0.1-linux-x86_64.tar.gz
+    sha256: ba914c0ab0d7196d1f5d29a99fff4c6411072609ae42790b42739109b1c73300
   dependencies:
     - python

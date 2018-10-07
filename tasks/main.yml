@@ -8,7 +8,7 @@
 - name: test for completion
   template:
     dest: "{{ sdk_version_marker }}"
-    src: version_merker
+    src: version_marker
   register: out
 - name: remove completion marker if not completed
   file:
